@@ -179,4 +179,11 @@
 		<exclude-pattern>/inc/wpseo-functions-deprecated\.php$</exclude-pattern>
 	</rule>
 
+	<!-- AUTO-GENERATED CODE -->
+
+	<!-- Allow single-line associative arrays in generated files. -->
+	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound">
+		<exclude-pattern>/src/config/migrations/20[0-9]{12}_*\.php$</exclude-pattern>
+	</rule>
+
 </ruleset>
