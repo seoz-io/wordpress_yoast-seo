@@ -41,7 +41,7 @@ const modalContent = ( preferences ) => [
 	},
 	{
 		title: __( "Advanced", "wordpress-seo" ),
-		content: <AdvancedSettings location="modal" />,
+		content: <AdvancedSettings />,
 		shouldRender: preferences.displayAdvancedTab,
 	},
 ];
