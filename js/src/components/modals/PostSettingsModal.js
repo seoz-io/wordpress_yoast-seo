@@ -9,6 +9,7 @@ import TwitterContainer from "../../containers/TwitterEditor";
 import SchemaTabContainer from "../../containers/SchemaTab";
 import AdvancedSettings from "../../containers/AdvancedSettings";
 import PropTypes from "prop-types";
+import { LocationProvider } from "../contexts/location";
 
 /**
  * Returns the ModalContent.
@@ -60,7 +61,7 @@ const DrawerContainer = ( { children } ) => {
 					const isOpen = index === 0;
 
 					return (
-						 child.shouldRender && (
+						child.shouldRender && (
 							<Collapsible
 								key={ index }
 								initialIsOpen={ isOpen }
@@ -68,7 +69,7 @@ const DrawerContainer = ( { children } ) => {
 							>
 								{ <div className="yoast-collapsible-content">{ child.content }</div> }
 							</Collapsible>
-						 )
+						)
 					);
 				} )
 			}
@@ -125,35 +126,37 @@ const PostSettingsModal = ( { preferences, postTypeName } ) => {
 			className="yoast yoast-post-settings-modal__button-container"
 		>
 			{ isOpen && (
-				<Modal
-					title="Yoast SEO post settings"
-					onRequestClose={ closeModal }
-					additionalClassName="yoast-collapsible-modal yoast-post-settings-modal"
-				>
-					<DrawerContainer>
-						{ modalContent( preferences ) }
-					</DrawerContainer>
-					<div className="yoast-notice-container">
-						<hr />
-						<div className="yoast-button-container">
-							<p>
-								{
-									/* Translators: %s translates to the Post Label in singular form */
-									sprintf( __( "Make sure to save your %s for changes to take effect", "wordpress-seo" ), postTypeName )
-								}
-							</p>
-							<Button
-								className="yoast-button yoast-button--primary yoast-button--post-settings-modal"
-								onClick={ closeModal }
-							>
-								{
-									/* Translators: %s translates to the Post Label in singular form */
-									sprintf( __( "Return to your %s", "wordpress-seo" ), postTypeName )
-								}
-							</Button>
+				<LocationProvider value="modal">
+					<Modal
+						title="Yoast SEO post settings"
+						onRequestClose={ closeModal }
+						additionalClassName="yoast-collapsible-modal yoast-post-settings-modal"
+					>
+						<DrawerContainer>
+							{ modalContent( preferences ) }
+						</DrawerContainer>
+						<div className="yoast-notice-container">
+							<hr />
+							<div className="yoast-button-container">
+								<p>
+									{
+										/* Translators: %s translates to the Post Label in singular form */
+										sprintf( __( "Make sure to save your %s for changes to take effect", "wordpress-seo" ), postTypeName )
+									}
+								</p>
+								<Button
+									className="yoast-button yoast-button--primary yoast-button--post-settings-modal"
+									onClick={ closeModal }
+								>
+									{
+										/* Translators: %s translates to the Post Label in singular form */
+										sprintf( __( "Return to your %s", "wordpress-seo" ), postTypeName )
+									}
+								</Button>
+							</div>
 						</div>
-					</div>
-				</Modal>
+					</Modal>
+				</LocationProvider>
 			) }
 			<Button
 				variant="edit"
